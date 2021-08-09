@@ -1,0 +1,32 @@
+```cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+
+bool pentagonal_seq(vector<int> &, int);
+void display_seq(const vector<int> &);
+
+bool pentagonal_seq(vector<int> & pent_seq, int size){
+  if (size <= 0 || size > 1024) {
+    cout << "Please specify a valid size!\n";
+    return false;
+  }
+  for (int i = pent_seq.size(); i < size; ++i) pent_seq.push_back((i+1)*(3*(i+1)-1)/2);
+  return true;
+} 
+void display_seq(const vector<int> & pent_seq){
+  cout << "The sequence of integers is ";
+  for (int i = 0; i < pent_seq.size(); ++i)
+    cout << pent_seq[i] << " ";
+  //for (vector<int>::iterator itr = pent_seq.begin(); itr != pent_seq.end(); ++itr)
+	//	cout << *itr << " ";
+  cout << endl;
+}
+int main(){
+  int seq_size = 10;
+  vector<int> pent_seq;
+  if (pentagonal_seq(pent_seq, seq_size)) display_seq(pent_seq);
+  else return 1;
+  return 0;
+}
+```
