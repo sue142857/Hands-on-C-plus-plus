@@ -13,6 +13,8 @@ public:
   bool push(const string &);
   bool pop(string &);
   bool peek(string &); 
+  bool find(const string&) const;
+  int count(const string&) const;
 private:
   vector<string> _stackVec;
 };
