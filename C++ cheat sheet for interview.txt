@@ -1,3 +1,5 @@
+source: https://github.com/jsjtzyy/LeetCode/tree/master
+
 /********************** MAX, MIN VALUE *******************************/
 #include<climits>
 INT_MAX = ~(1 << 31)   // for 64bit machine
