@@ -1,5 +1,7 @@
 source: https://github.com/jsjtzyy/LeetCode/tree/master
 
+use nullptr instead of NULL
+
 /********************** MAX, MIN VALUE *******************************/
 #include<climits>
 INT_MAX = ~(1 << 31)   // for 64bit machine
@@ -146,6 +148,7 @@ s.push();
 s.pop();
 q.front();                                     // access the first element in queue
 q.pop();                                       // does not return element !!!!!
+q.push()
 q.empty();
 
 priority_queue<int> pq;                        // max heap by default
@@ -159,6 +162,7 @@ struct cmp{
   }
 };
 
+//priority_queue<data_type, container, comparator> ds;
 priority_queue<Node*, vector<Node*>, cmp> pq;  // NOTE:  the format is different for sort function!!!
 pq.push(new Node(1, 2));
 
@@ -167,6 +171,7 @@ deque<int> dq (2,0);
 dq.push_back(1);
 dq.push_front(-1);
 cout << dq[0] << endl;
+// dq.front() dq.back() dq.pop_back() dq.pop_front()
 
 /************************* pair / make_pair *******************************/
 #include <utility>
@@ -178,7 +183,7 @@ cout << pr.second << endl;        // access second value
 /************************* rand / srand ***********************************/
 #include<stdlib.h>
 #include<time.h>
-srand((unsigned)time(0));  // initialize rand seed
+srand((unsigned)time(0));  // initialize rand seed, time(0) returns the current time in seconds, avoid same seed/same sequence of numbers from rand()
 (rand()%(b-a))+ a;         // random number from [a, b)
 (rand()%(b-a+1))+ a;       // random number from [a, b]
 (rand()%(b-a))+ a + 1;     // random number from (a, b)
@@ -191,14 +196,14 @@ eng() % len;               // [0, len)
 /************************* math ***********************************/
 #include <math.h>
 M_PI                       // pi in math
-cos(theta * M_PI / 180.0)  // cos takes angle in rad as input
-acos(-1) = M_PI;           // acos output is angle in rad
+cos(theta * M_PI / 180.0)  // cos takes angle in radian as input
+acos(-1) = M_PI;           // acos output is angle in radian
 sqrt()                     // compute square root
 round()                    // round floating value to closest integer
 pow(n, k);                 // compute n^k
 
 /************************* Format Output ***********************************/
-#include <iomanip>
+#include <iomanip>  // IO manipulators
 const double value = 12.3456789;
 cout << setprecision(4) << value << endl;   // 改成4精度，所以输出为12.35
 cout << fixed << setprecision(4) << value << endl; // 加了fixed意味着是固定点方式显示，所以这里的精度指的是小数位，输出为12.3457
@@ -206,6 +211,7 @@ cout << fixed << setprecision(4) << value << endl; // 加了fixed意味着是固
 /************************* swap reference / pointer ***********************/
 In bfs, we use two queues in Java. Similarly, we can swap two containers in C++
 cur.swap(next);     // swap cur and next reference;  两个容器的交换，可以用于map, set, queue, vector等
+std::swap(cur, next)
 
 In cpp, the operator precedence is:  () > []  > *  >  >>  > &
         that is: Function call > Array subscripting > Dereference > Bitwise shift > Bitwise AND
@@ -249,7 +255,7 @@ public:
     TrieNode(char ch){
         this->ch = ch;
         this->isWord = false;
-        memset(next, 0, sizeof(next));
+        memset(next, 0, sizeof(next)); // sets all bytes of memory to 0s
     }
 };
 
