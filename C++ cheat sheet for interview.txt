@@ -1,6 +1,6 @@
 source: https://github.com/jsjtzyy/LeetCode/tree/master
 
-/********************** nullptr *******************************/
+/********************** nullptr **************************************/
 There's no null keyword in modern C++. use nullptr instead of NULL.
 nullptr provides type safety and avoids ambiguities, especially in overloaded functions.
 // use integer 0 to represent null pointer leads to confusion in the following functions
@@ -21,10 +21,10 @@ LONG_MIN
 ULONG_MAX
 
 /******************** string, char, integer conversion ***************/
-[int to string]         to_string(num);
-[string to int]         stoi(s);            // i.e.  int val = stoi("1024");
 [char to string]        string(1, ch); 
 [charr array to string] string(charArr);
+[int to string]         to_string(num);
+[string to int]         stoi(s);            // i.e.  int val = stoi("1024");
 
 /********************** string ***************************/
 In C++ string is mutable
@@ -33,14 +33,15 @@ string(char[] chArr) or string(char* chArr);  // string constructor
 string(int n, char ch);                       // string constructor with n characters of ch
 
 string str = "1234";
-str[i];                                       // access i th character
 str.size();  or str.length();
+str[i];                                       // access i th character
 str.substr(start);                            // [start,  )              
 str.substr(start, length);                    // [start, start + length - 1]       str doesn't change 
 
 str.append("abc");
 str.append(1, 'a');                          // append character
 size_t found = str.find("ab");               // return pos where "ab" first occur in str.  NOTE: the return pos is size_t !!!
+                                             // size_t is an unsigned integer type used to represent sizes and indices of objects. 
 if (found!=string::npos)  cout << "found";   // 
 
 str.erase(2);                                // erase substring starting from 2.   [2, )    str changes !!!!!!!!!  str = "12"
@@ -198,6 +199,7 @@ srand((unsigned)time(0));  // initialize rand seed, time(0) returns the current 
 (rand()%(b-a))+ a + 1;     // random number from (a, b)
 rand() % len + a;          // [a, len + a)
 rand()/double(RAND_MAX);   // random floating number from [0.0, 1.0]
+
 // c++ 11 supports default_random_engine
 default_random_engine eng;
 eng() % len;               // [0, len)
@@ -208,7 +210,7 @@ M_PI                       // pi in math
 cos(theta * M_PI / 180.0)  // cos takes angle in radian as input
 acos(-1) = M_PI;           // acos output is angle in radian
 sqrt()                     // compute square root
-round()                    // round floating value to closest integer
+round()                    // round floating value to closest EVEN integer, round(1.5) is 2, round（2.5) is 2
 pow(n, k);                 // compute n^k
 
 /************************* Format Output ***********************************/
@@ -220,13 +222,13 @@ cout << fixed << setprecision(4) << value << endl; // 加了fixed意味着是固
 /************************* swap reference / pointer ***********************/
 In bfs, we use two queues in Java. Similarly, we can swap two containers in C++
 cur.swap(next);     // swap cur and next reference;  两个容器的交换，可以用于map, set, queue, vector等
-std::swap(cur, next)
+std::swap(cur, next)  // declared in <utility>
 
 In cpp, the operator precedence is:  () > []  > *  >  >>  > &
         that is: Function call > Array subscripting > Dereference > Bitwise shift > Bitwise AND
 
 /************************ rotate ***************************/
-rotate (Iterator first, Iterator middle, Iterator last);
+rotate (Iterator first, Iterator middle, Iterator last);  // declared in <algorithm>
 // Rotates elements in the range [first,last), the element pointed by middle becomes the new first element.
 
 Example:
@@ -244,6 +246,14 @@ public:
     }
 };
 
+struct ListNode {
+    int val;        // Data or value stored in the node
+    ListNode* next; // Pointer to the next node in the linked list
+
+    // Constructor to initialize the node with a value and nullptr for next
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
 class TreeNode{
 public:
     int val;
@@ -256,6 +266,15 @@ public:
     }
 };
 
+struct TreeNode {
+    int val;            // Data or value stored in the node
+    TreeNode* left;     // Pointer to the left child node (or subtree)
+    TreeNode* right;    // Pointer to the right child node (or subtree)
+
+    // Constructor to initialize the node with a value and nullptr for left and right pointers
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
 class TrieNode{
 public:
     char ch; 
@@ -264,8 +283,17 @@ public:
     TrieNode(char ch){
         this->ch = ch;
         this->isWord = false;
-        memset(next, 0, sizeof(next)); // sets all bytes of memory to 0s
+        // void* memset(void* ptr, int value, size_t num);
+        memset(next, 0, sizeof(next)); // sets all bytes of memory to 0s, #include<cstring>
     }
+};
+
+struct TrieNode {
+    std::unordered_map<char, TrieNode*> children;
+    bool isEndOfWord;
+
+    // Constructor
+    TrieNode() : isEndOfWord(false) {}
 };
 
 class Node{
@@ -283,6 +311,26 @@ public:
         cout<< this->x << this->y <<endl;
     }
 };
+
+class Node {
+public:
+    int x;
+    int y;
+
+    // Constructor
+    Node(int x, int y) : x(x), y(y) {}
+
+    // Comparison operator <
+    bool operator<(const Node& other) const {
+        return x < other.x || (x == other.x && y < other.y);
+    }
+
+    // Print function
+    void print() const {
+        std::cout << "(" << x << ", " << y << ")" << std::endl;
+    }
+};
+
 /*********************** pointer **********************/
 
 Node* p = new Node(x, y);
