@@ -1,6 +1,15 @@
 source: https://github.com/jsjtzyy/LeetCode/tree/master
 
-use nullptr instead of NULL
+/********************** nullptr *******************************/
+There's no null keyword in modern C++. use nullptr instead of NULL.
+nullptr provides type safety and avoids ambiguities, especially in overloaded functions.
+// use integer 0 to represent null pointer leads to confusion in the following functions
+    void foo(int* ptr) {
+        // Function for handling pointers
+    }
+    void foo(int value) {
+        // Function for handling integers
+    }
 
 /********************** MAX, MIN VALUE *******************************/
 #include<climits>
