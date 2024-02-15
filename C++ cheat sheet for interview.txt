@@ -105,6 +105,13 @@ struct cmp{
 } cmpObj;
 sort(v.begin(), v.end(), cmpObj);   // sort with self-defined comparator
 
+struct cmp {
+    bool operator() (const pair<int, int> &p, const pair<int, int> &q) {
+        return p.second > q.second; // descending order based on the second
+    }
+} cmpObj;
+sort(pairs.begin(), pairs.end(), cmpObj);
+
 /********************** unordered_map, map, unordered_set, set ***************************/
 #include<unordered_map>
 unordered_map<int, string> Map;                         // O(1) or constant time complexity
