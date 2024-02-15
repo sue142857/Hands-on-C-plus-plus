@@ -173,6 +173,8 @@ struct cmp{
 };
 
 //priority_queue<data_type, container, comparator> ds;
+// priority_queue<int, vector<int>, greater<int>> is min heap
+// priority_queue<int, vector<int>, less<int>> is the default max heap, which is priority_queue<int>
 priority_queue<Node*, vector<Node*>, cmp> pq;  // NOTE:  the format is different for sort function!!!
 pq.push(new Node(1, 2));
 
