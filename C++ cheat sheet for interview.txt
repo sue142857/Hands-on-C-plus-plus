@@ -97,6 +97,7 @@ v.resize(num, val);                 // resize vector by using val to padding  (d
 
 #include <algorithm>
 sort(v.begin(), v.end());           // sort vector and from min to max by default
+int maxVal = *max_element(v.begin(), v.end());
 
 struct cmp{
     bool operator() (int x, int y){
