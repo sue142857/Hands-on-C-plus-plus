@@ -26,6 +26,9 @@ ULONG_MAX
 [int to string]         to_string(num);
 [string to int]         stoi(s);            // i.e.  int val = stoi("1024");
 
+#include<cctype>
+bool check = isdigit('1');
+
 /********************** string ***************************/
 In C++ string is mutable
 
