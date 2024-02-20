@@ -255,13 +255,16 @@ public:
     }
 };
 
-struct ListNode {
-    int val;        // Data or value stored in the node
-    ListNode* next; // Pointer to the next node in the linked list
-
-    // Constructor to initialize the node with a value and nullptr for next
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;  // Data or value stored in the node
+ *     ListNode *next;  // Pointer to the next node in the linked list
+ *     ListNode() : val(0), next(nullptr) {}  // Constructor to initialize the node with a value and nullptr for next
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 
 class TreeNode{
 public:
