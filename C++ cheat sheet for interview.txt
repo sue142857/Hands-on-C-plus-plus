@@ -102,12 +102,26 @@ v.resize(num, val);                 // resize vector by using val to padding  (d
 sort(v.begin(), v.end());           // sort vector and from min to max by default
 int maxVal = *max_element(v.begin(), v.end());
 
+// custom comparison function
+bool customComparison(int x, int y) {
+    return x < y; // it sorts in ascending order
+}
+// sort with custom function pointer
+sort(v.begin(), v.end(), customComparison);
+
+// sort with a lambda function
+sort(v.begin(), v.end(), [](int x, int y){
+    return x < y; 
+});
+
+// custom comparator
 struct cmp{
     bool operator() (int x, int y){
         return x > y;               // descending order
     }
 } cmpObj;
-sort(v.begin(), v.end(), cmpObj);   // sort with self-defined comparator
+// sort with a functor (function object)
+sort(v.begin(), v.end(), cmpObj());   // sort with self-defined comparator
 
 struct cmp {
     bool operator() (const pair<int, int> &p, const pair<int, int> &q) {
