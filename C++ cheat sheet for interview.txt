@@ -3,31 +3,61 @@ source: https://github.com/jsjtzyy/LeetCode/tree/master
 /********************** nullptr **************************************/
 There's no null keyword in modern C++. use nullptr instead of NULL.
 nullptr provides type safety and avoids ambiguities, especially in overloaded functions.
-// use integer 0 to represent null pointer leads to confusion in the following functions
-    void foo(int* ptr) {
-        // Function for handling pointers
-    }
-    void foo(int value) {
-        // Function for handling integers
-    }
+
+// using integer 0 to represent null pointer leads to confusion in the following functions
+void foo(int* ptr) {
+    // Function for handling pointers
+}
+void foo(int value) {
+    // Function for handling integers
+}
+
+/********************** Size of Primitive Data Types *******************/
+char: Typically 1 byte
+short: Typically 2 bytes
+int: Typically 4 bytes
+long: Typically 4 bytes on 32-bit systems, and 8 bytes on 64-bit systems
+long long: Typically 8 bytes
+float: Typically 4 bytes
+double: Typically 8 bytes
+long double: Typically 8 or 16 bytes
+
+You can use the sizeof operator in C and C++ to determine the size of a data type or a variable in bytes at runtime.
+int* ptr;
+sizeof(ptr); // either 4 or 8 bytes depending on the system architecture
 
 /********************** MAX, MIN VALUE *******************************/
+The range from min to max is [-2^31, 2^31 - 1]
 #include<climits>
-INT_MAX = ~(1 << 31)   // for 64bit machine
-INT_MIN = 1 << 31      // for 64bit machine
+INT_MAX = ~(1 << 31)   // for 64-bit machine
+INT_MIN = 1 << 31      // for 64-bit machine
 UINT_MAX = (uint)(~0)  // 32 bit all equal 1
 LONG_MAX
 LONG_MIN
 ULONG_MAX
 
+/******************** Character Type ********************/
+#include<cctype> // provides functions that operate on individual characters
+bool check = isdigit('1'); 
+Character Classification:
+    isalpha(char): Checks if the character is an alphabetic character (a-z or A-Z).
+    isdigit(char): Checks if the character is a decimal digit (0-9).
+    isalnum(char): Checks if the character is an alphanumeric character (a-z, A-Z, or 0-9).
+    islower(char): Checks if the character is a lowercase letter (a-z).
+    isupper(char): Checks if the character is an uppercase letter (A-Z).
+    isspace(char): Checks if the character is a whitespace character (space, tab, newline, etc.).
+    ispunct(char): Checks if the character is a punctuation character (non-alphanumeric and non-whitespace).
+    isprint(char): Checks if the character is a printable character (including space).
+    iscntrl(char): Checks if the character is a control character (non-printable).
+Case Conversion:
+    tolower(char): Converts the character to lowercase if it is an uppercase letter.
+    toupper(char): Converts the character to uppercase if it is a lowercase letter.
+
 /******************** string, char, integer conversion ***************/
-[char to string]        string(1, ch); 
+[char to string]        string(1, ch); string(5, ch); // 5 repetitions of ch
 [charr array to string] string(charArr);
 [int to string]         to_string(num);
 [string to int]         stoi(s);            // i.e.  int val = stoi("1024");
-
-#include<cctype>
-bool check = isdigit('1');
 
 /********************** string ***************************/
 In C++ string is mutable
@@ -41,11 +71,11 @@ str[i];                                       // access i th character
 str.substr(start);                            // [start,  )              
 str.substr(start, length);                    // [start, start + length - 1]       str doesn't change 
 
+size_t pos = str.find("ab");                 // return pos where "ab" first occur in str.  NOTE: the return pos is size_t !!!
+if (pos != string::npos)  cout << "found";   // size_t is an unsigned integer type used to represent sizes and indices of objects.  
+
 str.append("abc");
 str.append(1, 'a');                          // append character
-size_t found = str.find("ab");               // return pos where "ab" first occur in str.  NOTE: the return pos is size_t !!!
-                                             // size_t is an unsigned integer type used to represent sizes and indices of objects. 
-if (found!=string::npos)  cout << "found";   // 
 
 str.erase(2);                                // erase substring starting from 2.   [2, )    str changes !!!!!!!!!  str = "12"
 str.erase(pos, length);                      // erase length characters starting from pos 
@@ -71,6 +101,11 @@ while(getline(ss, token, ',')) {            // if the delimiter is '\' we should
 /********************** array ***************************/
 int nums[10] = {0};
 [array to vector]  vector<int> vec(&nums[0], &nums[10]);
+int mat[3][4] = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
 
 /********************** vector ***************************/
 #include <vector>
@@ -82,7 +117,7 @@ int val = v[i];           // random access
 v.empty();                // return bool to indicate empty or not
 v.push_back(e);           // insert element to end
 v.pop_back();             // delete last element
-v.clear();
+v.clear();                // effectively remove all elements, leaving with a size of 0
 v.front();                // return first element
 v.erase(v.begin() + 5);   // delete 6th element;
 v.insert(v.begin(), var)  // insert var in first position
@@ -162,8 +197,8 @@ if(Set.find(1) != Set.end()) cout << "found" << endl;   // find val  equivalent 
 for(iter = Set.begin(); iter != Set.end(); ++iter)      // traverse
     cout << *iter <<endl;
 
-set<int>::iterator it = Set.upper_bound(val);           //Return iterator pointing to first element after val             > val
-set<int>::iterator it = Set.lower_bound(val);           //Return iterator pointing to first element not goes before val   >= val
+set<int>::iterator it = Set.upper_bound(val);           //Return iterator pointing to first element greater than val
+set<int>::iterator it = Set.lower_bound(val);           //Return iterator pointing to first element not less than val
 
 struct cmp{
     bool operator()(Node* a, Node* b){
@@ -183,7 +218,7 @@ s.push();
 s.pop();
 q.front();                                     // access the first element in queue
 q.pop();                                       // does not return element !!!!!
-q.push()
+q.push();
 q.empty();
 
 priority_queue<int> pq;                        // max heap by default
@@ -218,9 +253,12 @@ cout << pr.first << endl;         // access first value
 cout << pr.second << endl;        // access second value
 
 /************************* rand / srand ***********************************/
-#include<stdlib.h>
+The same random seed value will result in the same sequence of random numbers (both value and order are the same).
+
+#include<stdlib.h> // C Standard Library for rand and srand functions
 #include<time.h>
-srand((unsigned)time(0));  // initialize rand seed, time(0) returns the current time in seconds, avoid same seed/same sequence of numbers from rand()
+// initialize rand seed to avoid same seed/same sequence of numbers from rand()
+srand((unsigned)time(0));  // time(0) returns the current time in seconds since Unix epoch
 (rand()%(b-a))+ a;         // random number from [a, b)
 (rand()%(b-a+1))+ a;       // random number from [a, b]
 (rand()%(b-a))+ a + 1;     // random number from (a, b)
@@ -239,6 +277,8 @@ acos(-1) = M_PI;           // acos output is angle in radian
 sqrt()                     // compute square root
 round()                    // round floating value to closest EVEN integer, round(1.5) is 2, round（2.5) is 2
 pow(n, k);                 // compute n^k
+floor()
+ceil()
 
 /************************* Format Output ***********************************/
 #include <iomanip>  // IO manipulators
@@ -316,7 +356,8 @@ public:
     TrieNode(char ch){
         this->ch = ch;
         this->isWord = false;
-        // void* memset(void* ptr, int value, size_t num);
+        // fills the first num bytes of memory blocks pointed by ptr with value, return ptr.
+        // void* memset(void* ptr, int value, size_t num); 
         memset(next, 0, sizeof(next)); // sets all bytes of memory to 0s, #include<cstring>
     }
 };
@@ -329,22 +370,6 @@ struct TrieNode {
     TrieNode() : isEndOfWord(false) {}
 };
 
-class Node{
-public:
-    int x;
-    int y;
-    Node(int x, int y){
-        this->x;
-        this->y;
-    }
-    friend operator < (Node& a, Node& b){
-        return this.x - that.x;
-    }
-    void print(){
-        cout<< this->x << this->y <<endl;
-    }
-};
-
 class Node {
 public:
     int x;
@@ -354,7 +379,7 @@ public:
     Node(int x, int y) : x(x), y(y) {}
 
     // Comparison operator <
-    bool operator<(const Node& other) const {
+    bool operator< (const Node& other) const {
         return x < other.x || (x == other.x && y < other.y);
     }
 
