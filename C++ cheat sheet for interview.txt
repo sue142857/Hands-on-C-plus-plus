@@ -36,6 +36,12 @@ LONG_MAX
 LONG_MIN
 ULONG_MAX
 
+For modulo,
+2^(31) - 1 = 2,147,483,647 > 10^9 + 7
+int mod = pow(10, 9) + 7;
+((n % mod) + (m % mod)) % mod equals to (n + m) % mod
+(n % mod) * (m % mod) % mod equals to (n * m) % mod
+
 /******************** Character Type ********************/
 #include<cctype> // provides functions that operate on individual characters
 bool check = isdigit('1'); 
