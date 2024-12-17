@@ -1,16 +1,22 @@
 source: https://github.com/jsjtzyy/LeetCode/tree/master
 
 /********************** nullptr **************************************/
+NULL is a Macro defined as: 
+    #define NULL 0
+It is often used to represent null pointers in C and pre-C++11 code.
+
+When 0 or NULL is used in pointer contexts, 0 is implicitly converted to a null pointer.
+However, it leads to ambiguity in overloaded functions or templates, e.g., foo(0).
+
+    void foo(int* ptr) {
+        // Function for handling pointers
+    }
+    void foo(int value) {
+        // Function for handling integers
+    }
+
 There's no null keyword in modern C++. use nullptr instead of NULL.
 nullptr provides type safety and avoids ambiguities, especially in overloaded functions.
-
-// using integer 0 to represent null pointer leads to confusion in the following functions
-void foo(int* ptr) {
-    // Function for handling pointers
-}
-void foo(int value) {
-    // Function for handling integers
-}
 
 /********************** Size of Primitive Data Types *******************/
 char: Typically 1 byte
@@ -23,8 +29,10 @@ double: Typically 8 bytes
 long double: Typically 8 or 16 bytes
 
 You can use the sizeof operator in C and C++ to determine the size of a data type or a variable in bytes at runtime.
-int* ptr;
-sizeof(ptr); // either 4 or 8 bytes depending on the system architecture
+On a 32-bit system, pointers are 4 bytes in size because they hold 32-bit memory addresses.
+On a 64-bit system, pointers are 8 bytes in size because they hold 64-bit memory addresses.
+    int* ptr;
+    sizeof(ptr); // either 4 or 8 bytes depending on the system architecture
 
 /********************** MAX, MIN VALUE *******************************/
 The range from min to max is [-2^31, 2^31 - 1]
